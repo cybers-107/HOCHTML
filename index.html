@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Học HTML từ số 0: 16 bài học tiếng Việt với live code chạy ngay, chạy từng dòng, 160 câu quiz, bài tập tự chấm, bảng tra và từ điển thuật ngữ.">
+  <title>Học HTML Từ Số 0 — 16 bài học tương tác</title>
+  <!-- Phông chữ: Be Vietnam Pro (nội dung) + JetBrains Mono (code), có phông dự phòng trong CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23E44D26'/%3E%3Ctext x='16' y='22' font-size='14' font-family='monospace' font-weight='bold' text-anchor='middle' fill='white'%3E%26lt;/%26gt;%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <!-- Liên kết bỏ qua điều hướng, hỗ trợ trình đọc màn hình -->
+  <a class="skip-link" href="#noi-dung-chinh">Bỏ qua tới nội dung chính</a>
+
+  <!-- ===== HEADER CỐ ĐỊNH ===== -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button id="btn-menu" class="icon-btn only-mobile" aria-label="Mở mục lục bài học" aria-expanded="false" aria-controls="sidebar">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <a class="logo" href="#/" aria-label="Học HTML — về trang chủ">
+        <span class="logo-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span class="logo-text">Học <strong>HTML</strong></span>
+      </a>
+      <nav class="topnav" aria-label="Điều hướng chính">
+        <a href="#/" data-nav="home">Trang chủ</a>
+        <a href="#lo-trinh" data-nav="lo-trinh">Lộ trình</a>
+        <a href="#thuc-hanh" data-nav="thuc-hanh">Thực hành</a>
+        <a href="#bang-tra" data-nav="bang-tra">Bảng tra</a>
+        <a href="#kiem-tra" data-nav="kiem-tra">Kiểm tra cuối khóa</a>
+      </nav>
+      <div class="top-actions">
+        <div class="mini-progress" title="Tiến độ toàn khóa" aria-label="Tiến độ toàn khóa">
+          <div class="mini-progress-track"><div id="mini-progress-bar" class="mini-progress-bar"></div></div>
+          <span id="mini-progress-text" class="mini-progress-text">0%</span>
+        </div>
+        <button id="btn-search" class="search-trigger" aria-label="Tìm kiếm (Ctrl+K)">
+          <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span class="search-placeholder">Tìm kiếm bài học, thẻ...</span>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+        <button id="btn-shortcuts" class="icon-btn" aria-label="Xem phím tắt" aria-expanded="false" aria-controls="shortcuts-pop">
+          <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.4 9.2a2.7 2.7 0 0 1 5.3.7c0 1.8-2.6 2.3-2.6 3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1.15" fill="currentColor"/></svg>
+        </button>
+        <button id="btn-theme" class="icon-btn" aria-label="Chuyển chế độ sáng / tối">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="currentColor"/></svg>
+        </button>
+        <!-- Popup phím tắt (mở bằng nút ?) -->
+        <div id="shortcuts-pop" class="shortcuts-pop" hidden role="dialog" aria-label="Danh sách phím tắt">
+          <p class="sc-title">Phím tắt</p>
+          <ul class="sc-list">
+            <li><span class="sc-keys"><kbd>Ctrl</kbd>+<kbd>K</kbd> / <kbd>/</kbd></span><span>Mở tìm kiếm toàn site</span></li>
+            <li><span class="sc-keys"><kbd>←</kbd><kbd>→</kbd></span><span>Bài trước / bài tiếp theo</span></li>
+            <li><span class="sc-keys"><kbd>Ctrl</kbd>+<kbd>Enter</kbd></span><span>Chạy code trong ô đang soạn</span></li>
+            <li><span class="sc-keys"><kbd>Tab</kbd></span><span>Thụt lề 2 spaces trong ô code</span></li>
+            <li><span class="sc-keys"><kbd>Esc</kbd></span><span>Đóng tìm kiếm / popup này</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Lớp phủ khi mở sidebar trên điện thoại -->
+  <div id="sidebar-overlay" class="sidebar-overlay" hidden></div>
+
+  <!-- ===== BỐ CỤC 3 CỘT ===== -->
+  <div class="app">
+    <!-- Sidebar mục lục bài học (JS đổ danh sách bài vào #side-nav) -->
+    <aside id="sidebar" class="sidebar" aria-label="Mục lục bài học">
+      <div class="side-head">
+        <span class="side-title">Mục lục</span>
+        <span class="side-count">16 bài</span>
+      </div>
+      <nav id="side-nav" class="side-nav" aria-label="Danh sách bài học"></nav>
+      <div class="side-foot">
+        <button id="btn-reset-progress" class="side-reset" type="button">
+          <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M4 4v6h6M20 20v-6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 9a8 8 0 0 0-14.3-3.6L4 10m0 5a8 8 0 0 0 14.3 3.6L20 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Reset tiến độ
+        </button>
+      </div>
+    </aside>
+
+    <!-- Vùng nội dung chính: router đổ trang vào đây -->
+    <main id="noi-dung-chinh" class="content" tabindex="-1">
+      <div id="app" aria-live="off"></div>
+      <footer class="site-footer">
+        <p>Học HTML Từ Số 0 — 16 bài · 100% tiếng Việt · Live code chạy ngay trong trình duyệt.</p>
+        <p class="footer-sub">Thuần HTML + CSS + JavaScript, không thư viện. Tiến độ lưu trên máy bạn (localStorage).</p>
+      </footer>
+    </main>
+
+    <!-- Mục lục "Trong bài này" bên phải (JS đổ + tô sáng theo cuộn) -->
+    <aside id="right-toc" class="right-toc" aria-label="Trong bài này">
+      <div id="toc-box" class="toc-box"></div>
+    </aside>
+  </div>
+
+  <!-- ===== MODAL TÌM KIẾM TOÀN SITE ===== -->
+  <div id="search-modal" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Tìm kiếm toàn site">
+      <div class="search-head">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.8-3.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="search-input" type="search" placeholder="Tìm bài học, thẻ HTML, thuật ngữ…" autocomplete="off" aria-label="Ô tìm kiếm">
+        <button id="btn-close-search" class="icon-btn" aria-label="Đóng tìm kiếm">✕</button>
+      </div>
+      <div id="search-results" class="search-results" role="listbox" aria-label="Kết quả tìm kiếm"></div>
+      <div class="search-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> di chuyển</span>
+        <span><kbd>Enter</kbd> mở</span>
+        <span><kbd>Esc</kbd> đóng</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vùng thông báo (toast) -->
+  <div id="toast-box" class="toast-box" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- Nút lên đầu trang -->
+  <button id="btn-top" class="btn-top" aria-label="Lên đầu trang" hidden>↑</button>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
