@@ -94,10 +94,6 @@
     <!-- Vùng nội dung chính: router đổ trang vào đây -->
     <main id="noi-dung-chinh" class="content" tabindex="-1">
       <div id="app" aria-live="off"></div>
-      <footer class="site-footer">
-        <p>Học HTML Từ Số 0 — 16 bài · 100% tiếng Việt · Live code chạy ngay trong trình duyệt.</p>
-        <p class="footer-sub">Thuần HTML + CSS + JavaScript, không thư viện. Tiến độ lưu trên máy bạn (localStorage).</p>
-      </footer>
     </main>
 
     <!-- Mục lục "Trong bài này" bên phải (JS đổ + tô sáng theo cuộn) -->
@@ -110,6 +106,43 @@
     <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m13 7 5 5-5 5M6 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span class="side-open-label" aria-hidden="true">Mục lục</span>
   </button>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="footer-logo" href="#/" aria-label="Học HTML — về trang chủ">
+            <span class="logo-mark" aria-hidden="true">&lt;/&gt;</span>
+            <span class="footer-brand-name">Học <strong>HTML</strong></span>
+          </a>
+          <p class="footer-tagline">TỪ SỐ 0 · THỰC HÀNH NGAY TRÊN TRÌNH DUYỆT</p>
+          <p class="footer-desc">Tự học HTML bằng tiếng Việt: giải thích dễ hiểu, xem mô phỏng gõ code và làm bài tập được chấm điểm tự động.</p>
+        </div>
+        <nav class="footer-col" aria-label="Khám phá">
+          <h2 class="footer-title">Khám phá</h2>
+          <ul class="footer-links">
+            <li><a href="#lo-trinh">Lộ trình học</a></li>
+            <li><a href="#bai-1"><span id="footer-lesson-count">Bài học</span></a></li>
+            <li><a href="#thuc-hanh">Phòng thực hành</a></li>
+            <li><a href="#bang-tra">Bảng tra thẻ</a></li>
+            <li><a href="#kiem-tra">Kiểm tra cuối khóa</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Nguồn học liệu">
+          <h2 class="footer-title">Nguồn học liệu</h2>
+          <ul class="footer-links">
+            <li><a href="https://developer.mozilla.org/vi/docs/Web/HTML" target="_blank" rel="noopener noreferrer">MDN Web Docs (HTML)<svg class="footer-ext-icon" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">(mở tab mới)</span></a></li>
+            <li><a href="https://www.w3schools.com/html/" target="_blank" rel="noopener noreferrer">W3Schools HTML Tutorial<svg class="footer-ext-icon" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">(mở tab mới)</span></a></li>
+            <li><a href="https://hieutachi.github.io/cse122-k67/slides/index.html" target="_blank" rel="noopener noreferrer">Slide học liệu của giảng viên<svg class="footer-ext-icon" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr-only">(mở tab mới)</span></a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© <span id="footer-year"></span> Học HTML · Tài liệu học tập phi thương mại.</p>
+        <p class="footer-note">Nội dung theo giáo trình HTML cơ bản và nâng cao · Điểm chấm chỉ để tự luyện tập · Tiến độ lưu trên máy bạn (localStorage).</p>
+      </div>
+    </div>
+  </footer>
 
   <!-- ===== MODAL TÌM KIẾM TOÀN SITE ===== -->
   <div id="search-modal" class="modal-overlay" hidden>

@@ -3513,6 +3513,10 @@ function init() {
   $("#btn-side-open").addEventListener("click", () => toggleSide(true));
   sideMQ.addEventListener("change", () => applySideState(false));
   applySideState(false);
+  const footerYear = $("#footer-year");
+  if (footerYear) footerYear.textContent = new Date().getFullYear();
+  const footerCount = $("#footer-lesson-count");
+  if (footerCount) footerCount.textContent = LESSONS.length + " bài học";
   /* Accordion sidebar: thu gọn/mở rộng từng phần, nhớ trạng thái vào localStorage */
   $("#side-nav").addEventListener("click", e => {
     const head = e.target.closest(".side-part-head");
