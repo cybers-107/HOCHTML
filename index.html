@@ -58,6 +58,7 @@
             <li><span class="sc-keys"><kbd>←</kbd><kbd>→</kbd></span><span>Bài trước / bài tiếp theo</span></li>
             <li><span class="sc-keys"><kbd>Ctrl</kbd>+<kbd>Enter</kbd></span><span>Chạy code trong ô đang soạn</span></li>
             <li><span class="sc-keys"><kbd>Tab</kbd></span><span>Thụt lề 2 spaces trong ô code</span></li>
+            <li><span class="sc-keys"><kbd>[</kbd></span><span>Ẩn / hiện mục lục trái</span></li>
             <li><span class="sc-keys"><kbd>Esc</kbd></span><span>Đóng tìm kiếm / popup này</span></li>
           </ul>
         </div>
@@ -74,7 +75,12 @@
     <aside id="sidebar" class="sidebar" aria-label="Mục lục bài học">
       <div class="side-head">
         <span class="side-title">Mục lục</span>
-        <span class="side-count">16 bài</span>
+        <span class="side-head-right">
+          <span class="side-count">16 bài</span>
+          <button id="btn-side-collapse" class="side-collapse" type="button" aria-label="Ẩn mục lục" aria-expanded="true" aria-controls="sidebar" title="Ẩn mục lục (phím [)">
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="m11 7-5 5 5 5M18 7l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </span>
       </div>
       <nav id="side-nav" class="side-nav" aria-label="Danh sách bài học"></nav>
       <div class="side-foot">
@@ -99,6 +105,11 @@
       <div id="toc-box" class="toc-box"></div>
     </aside>
   </div>
+
+  <button id="btn-side-open" class="side-open" type="button" aria-label="Hiện mục lục" aria-expanded="false" aria-controls="sidebar" title="Hiện mục lục (phím [)">
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m13 7 5 5-5 5M6 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="side-open-label" aria-hidden="true">Mục lục</span>
+  </button>
 
   <!-- ===== MODAL TÌM KIẾM TOÀN SITE ===== -->
   <div id="search-modal" class="modal-overlay" hidden>

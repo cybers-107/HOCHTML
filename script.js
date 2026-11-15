@@ -2094,7 +2094,7 @@ const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0
 
 /* ---------- B2. KHO LƯU TIẾN ĐỘ (localStorage, bọc try/catch) ---------- */
 const STORE_KEY = "hochtml-tien-do-v1";
-let store = { done: {}, best: {}, ex: {}, marks: [], last: 0, theme: null, collapsed: {} };
+let store = { done: {}, best: {}, ex: {}, marks: [], last: 0, theme: null, collapsed: {}, sideHidden: false };
 function loadStore() {
   try {
     const raw = localStorage.getItem(STORE_KEY);
@@ -2701,6 +2701,20 @@ function renderSidebar() {
 }
 function openSidebar() { $("#sidebar").classList.add("open"); $("#sidebar-overlay").hidden = false; $("#btn-menu").setAttribute("aria-expanded", "true"); }
 function closeSidebar() { $("#sidebar").classList.remove("open"); $("#sidebar-overlay").hidden = true; $("#btn-menu").setAttribute("aria-expanded", "false"); }
+const sideMQ = window.matchMedia("(min-width: 901px)");
+function applySideState(moveFocus) {
+  const hide = !!store.sideHidden && sideMQ.matches;
+  $(".app").classList.toggle("side-hidden", hide);
+  $("#sidebar").inert = hide;
+  $("#btn-side-collapse").setAttribute("aria-expanded", String(!hide));
+  $("#btn-side-open").setAttribute("aria-expanded", String(!hide));
+  if (moveFocus) (hide ? $("#btn-side-open") : $("#btn-side-collapse")).focus();
+}
+function toggleSide(moveFocus) {
+  store.sideHidden = !store.sideHidden;
+  saveStore();
+  applySideState(moveFocus);
+}
 
 /* ---------- B14. TÌM KIẾM TOÀN SITE ---------- */
 let searchIndex = [];
@@ -3423,6 +3437,7 @@ function route() {
     hideToc(); renderHome(app); setActiveNav("home");
   }
   renderSidebar(); updateProgressUI();
+  applySideState(false);
   currentPage = hash;
   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 }
@@ -3455,6 +3470,7 @@ function onGlobalKey(e) {
     return;
   }
   if (modalOpen) return;
+  if (e.key === "[" && !typing && sideMQ.matches) { e.preventDefault(); toggleSide(false); return; }
   if (e.key === "/" && !typing) { e.preventDefault(); openSearch(); return; }
   if (!typing && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
     const m = location.hash.match(/^#bai-(\d+)$/);
@@ -3493,6 +3509,10 @@ function init() {
   });
   $("#btn-menu").addEventListener("click", () => { $("#sidebar").classList.contains("open") ? closeSidebar() : openSidebar(); });
   $("#sidebar-overlay").addEventListener("click", closeSidebar);
+  $("#btn-side-collapse").addEventListener("click", () => toggleSide(true));
+  $("#btn-side-open").addEventListener("click", () => toggleSide(true));
+  sideMQ.addEventListener("change", () => applySideState(false));
+  applySideState(false);
   /* Accordion sidebar: thu gọn/mở rộng từng phần, nhớ trạng thái vào localStorage */
   $("#side-nav").addEventListener("click", e => {
     const head = e.target.closest(".side-part-head");

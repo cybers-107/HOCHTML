@@ -254,16 +254,17 @@ input, textarea, select { font-family: inherit; }
 
 /* ---------- 6. BỐ CỤC ---------- */
 .app {
+  --side-w: 264px; --side-gap: 30px;
   max-width: 1460px; margin: 0 auto;
-  display: grid; grid-template-columns: 264px minmax(0, 1fr) 216px; gap: 30px;
+  display: grid; grid-template-columns: var(--side-w) minmax(0, 1fr) 216px; gap: 0;
   padding: calc(var(--header-h) + 22px) 24px 48px;
+  transition: grid-template-columns .2s ease, padding-left .2s ease;
 }
 .content { min-width: 0; outline: none; }
 #app { max-width: 76ch; margin: 0 auto; }
 #app.wide { max-width: 1060px; }
-/* Trang không có mục lục phải (trang chủ, bảng tra…): gộp cột thứ 3 vào nội dung */
 @media (min-width: 1221px) {
-  .app.no-toc { grid-template-columns: 264px minmax(0, 1fr); }
+  .app.no-toc { grid-template-columns: var(--side-w) minmax(0, 1fr); }
 }
 
 /* ---------- 7. SIDEBAR ---------- */
@@ -271,12 +272,19 @@ input, textarea, select { font-family: inherit; }
   position: sticky; top: calc(var(--header-h) + 22px);
   max-height: calc(100vh - var(--header-h) - 44px);
   display: flex; flex-direction: column;
+  min-width: 0; margin-right: var(--side-gap);
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
   box-shadow: var(--shadow); overflow: hidden;
+  transition: margin-right .2s ease, border-width .2s ease, visibility 0s;
 }
 .side-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 10px; border-bottom: 1px solid var(--line); }
 .side-title { font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .side-count { font-size: .7rem; font-weight: 700; color: var(--muted); background: var(--surface-2); border: 1px solid var(--line); padding: 2px 8px; border-radius: 12px; }
+.side-head-right { display: flex; align-items: center; gap: 8px; }
+.side-collapse { flex: none; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); cursor: pointer; transition: color .15s ease, border-color .15s ease, background-color .15s ease; }
+.side-collapse:hover { color: var(--brand); border-color: var(--brand); background: var(--brand-soft); }
+.side-collapse:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--brand-soft); }
+.side-collapse svg { width: 15px; height: 15px; }
 /* Thanh cuộn siêu mảnh 4px, chỉ hiện khi hover vào sidebar */
 .side-nav { overflow-y: auto; padding: 8px; flex: 1; scrollbar-width: thin; scrollbar-color: transparent transparent; }
 .side-nav:hover { scrollbar-color: var(--scroll-thumb) transparent; }
@@ -349,7 +357,7 @@ input, textarea, select { font-family: inherit; }
 .sidebar-overlay { position: fixed; inset: 0; z-index: 90; background: var(--scrim); }
 
 /* ---------- 8. MỤC LỤC PHẢI ---------- */
-.right-toc { position: sticky; top: calc(var(--header-h) + 22px); align-self: start; max-height: calc(100vh - var(--header-h) - 44px); overflow-y: auto; }
+.right-toc { position: sticky; top: calc(var(--header-h) + 22px); align-self: start; max-height: calc(100vh - var(--header-h) - 44px); overflow-y: auto; margin-left: 30px; }
 .toc-box { border-left: 2px solid var(--line); padding-left: 14px; }
 .toc-title { font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 8px; }
 .toc-box a {
@@ -812,10 +820,26 @@ table.cheat code { white-space: nowrap; }
 .site-footer p { margin: 3px 0; }
 .footer-sub { opacity: .75; }
 
+.side-open { position: fixed; left: 10px; top: 50%; transform: translateY(-50%); z-index: 90; display: none; flex-direction: column; align-items: center; gap: 8px; padding: 10px 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--brand); box-shadow: var(--shadow); cursor: pointer; transition: background-color .15s ease, border-color .15s ease; }
+.side-open:hover { background: var(--brand-soft); border-color: var(--brand); }
+.side-open:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--brand-soft); }
+.side-open svg { width: 16px; height: 16px; }
+.side-open-label { display: none; writing-mode: vertical-rl; font-size: .72rem; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
+@media (min-width: 901px) {
+  .app.side-hidden { --side-w: 0px; --side-gap: 0px; padding-left: 56px; }
+  .app.side-hidden .sidebar { visibility: hidden; border-width: 0; box-shadow: none; transition: margin-right .2s ease, border-width .2s ease, visibility 0s linear .2s; }
+  .app.side-hidden ~ .side-open { display: flex; }
+  .app.side-hidden #app, .app.side-hidden #app.wide { max-width: none; }
+  .app.side-hidden #app p { max-width: 78ch; }
+}
+@media (min-width: 1221px) {
+  .side-open-label { display: block; }
+}
+
 /* ---------- 19. RESPONSIVE ---------- */
 .only-mobile { display: none !important; }
 @media (max-width: 1220px) {
-  .app { grid-template-columns: 250px minmax(0, 1fr); }
+  .app { --side-w: 250px; grid-template-columns: var(--side-w) minmax(0, 1fr); }
   .right-toc { display: none; }
   .hero { gap: 26px; padding: 36px 30px; }
 }
@@ -827,9 +851,10 @@ table.cheat code { white-space: nowrap; }
   .sidebar {
     position: fixed; top: 0; left: 0; bottom: 0; z-index: 95; width: min(320px, 86vw);
     max-height: none; border-radius: 0; transform: translateX(-105%);
-    transition: transform .18s ease; padding-top: 14px;
+    transition: transform .18s ease; padding-top: 14px; margin-right: 0;
   }
   .sidebar.open { transform: none; box-shadow: var(--shadow-lg); }
+  .side-collapse { display: none; }
   .steps-grid, .part-cards { grid-template-columns: 1fr; }
   .roadmap { grid-template-columns: 1fr 1fr; }
   .hero { grid-template-columns: 1fr; padding: 30px 22px; }
@@ -878,9 +903,10 @@ table.cheat code { white-space: nowrap; }
 
 /* ---------- 21. IN ẤN (bảng tra / lưu PDF) ---------- */
 @media print {
-  .topbar, .sidebar, .right-toc, .btn-top, .toast-box, .filter-bar, .site-footer, .sidebar-overlay, .modal-overlay, .skip-link, .shortcuts-pop, .practice-filters { display: none !important; }
+  .topbar, .sidebar, .right-toc, .btn-top, .toast-box, .filter-bar, .site-footer, .sidebar-overlay, .modal-overlay, .skip-link, .shortcuts-pop, .practice-filters, .side-open { display: none !important; }
   body { background: #fff; color: #000; font-size: 12px; }
   .app { display: block; padding: 0; max-width: none; }
+  .app.side-hidden { padding-left: 0; }
   #app { max-width: none; }
   .table-wrap { box-shadow: none; border-color: #999; overflow: visible; }
   table.cheat { min-width: 0; font-size: 11px; }
